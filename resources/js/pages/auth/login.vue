@@ -63,8 +63,7 @@ import Form from 'vform'
 
 export default {
   middleware: 'guest',
-    layout:'basic',
-
+  layout: 'basic',
   metaInfo () {
     return { title: this.$t('login') }
   },
