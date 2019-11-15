@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-5 text-center">
                       <img
-                        src="https://www.gravatar.com/avatar/d94d45fb8bbf440055409739bccf6bce.jpg?s=200&d=mm"
+                        :src="`/storage/${item.logo}`"
                         alt="" class="img-circle img-fluid"
                       >
                     </div>

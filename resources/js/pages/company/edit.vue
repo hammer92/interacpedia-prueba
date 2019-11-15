@@ -6,8 +6,12 @@
            :button-text="$t('edit')"
            @save="save"
     >
-        <form @submit.prevent="save" @keydown="form.onKeydown($event)">
+        <form @submit.prevent="save" @keydown="form.onKeydown($event)" class="text-center">
 
+                <img
+                        :src="`/storage/${logo}`"
+                        alt="" class="img-circle img-fluid"
+                >
             <div class="input-group mb-3">
                 <div class="input-group-append">
                     <div class="input-group-text">
@@ -41,6 +45,7 @@
 
                 <has-error :form="form" field="website" />
             </div>
+            <vueFile v-model="form.file" />
         </form>
 
 
@@ -57,19 +62,32 @@
                 email: '',
                 website: ''
             }),
-            id: false
+            id: false,
+            logo:''
         }),
         methods:{
             setData(item){
                 this.id = item.id
+                this.logo = item.logo
                 this.form = new Form(item)
                 this.$refs.modalCrear.open()
             },
             async save(){
-                const resp = await this.form.put(`/api/companies/${this.id}`).catch(error=>{
+                const resp = await this.form.submit('put', `/api/companies/${this.id}`, {
+                    // Transform form data to FormData
+                    transformRequest: [
+                        function(data) {
+                            let formData = new FormData()
+                            for(let key of Object.keys(data)){
+                                formData.append(key,data[key])
+                            }
+                            return formData
+                        }
+                    ]
+                }).catch(error => {
                     console.log(error)
-                    return
                 })
+
                 if(resp){
                     this.$refs.modalCrear.close()
                     this.form.clear()

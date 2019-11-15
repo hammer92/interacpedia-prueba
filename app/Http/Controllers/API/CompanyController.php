@@ -6,6 +6,7 @@ use App\Company;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
@@ -27,6 +28,9 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
+        dd($request->file('file')->isValid());
+        $logo = $request->file('file')->store('company', 'public');
+        $request->merge(['logo' => $logo]);
         $model = new Company($request->all());
         $model->save();
         return $model;
@@ -50,8 +54,11 @@ class CompanyController extends Controller
      * @param Company $company
      * @return Company
      */
-    public function update(CompanyRequest $request, Company $company)
+    public function update(Request $request, Company $company)
     {
+        dd($request->file);
+        if ($request->hasFile('photo')) {
+        }
         $company->name = $request->name;
         $company->email = $request->email;
         $company->website = $request->website;
@@ -68,6 +75,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
+        Storage::disk('public')->delete($company->logo);
         return response()->json($company->delete());
     }
 }
