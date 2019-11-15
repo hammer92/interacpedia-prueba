@@ -59,7 +59,7 @@
       "php artisan storage:link",
       "php artisan migrate:refresh --seed",
       "chmod -R 777 public/",
-      "chmod -R 777 storege/"
+      "chmod -R 777 storage/"
     ],
     "post-autoload-dump": [
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
