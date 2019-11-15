@@ -57,7 +57,9 @@
   "scripts": {
     "post-install-cmd": [
       "php artisan storage:link",
-      "chmod -R 777 public/"
+      "php artisan migrate:refresh --seed",
+      "chmod -R 777 public/",
+      "chmod -R 777 storege/"
     ],
     "post-autoload-dump": [
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",

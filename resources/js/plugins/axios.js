@@ -1,9 +1,11 @@
+import Vue from 'vue'
 import axios from 'axios'
 import store from '~/store'
 import router from '~/router'
 import Swal from 'sweetalert2'
 import i18n from '~/plugins/i18n'
 
+Vue.prototype.$http = axios
 // Request interceptor
 axios.interceptors.request.use(request => {
   const token = store.getters['auth/token']
