@@ -41,7 +41,8 @@
         </div>
         <div class="card-body pb-0">
           <div class="row d-flex align-items-stretch">
-            <div v-if="lista.data.length === 0" class="col-12">
+
+            <div v-if="lista.data.length === 0 && !cargando" class="col-12">
               <div class="error-page">
                 <h2 class="headline text-warning">
                   <i
@@ -69,7 +70,19 @@
                     <th>{{ $t('actions') }}</th>
                   </tr>
                 </thead>
+
                 <tbody>
+                <tr  v-if="cargando">
+                  <td  colspan="7" class="col-12 jumbotron">
+                    <semipolar-spinner
+                            class="mx-auto"
+                            :animation-duration="1500"
+                            :size="64"
+                            color="#25628F"
+                    />
+                  </td>
+                </tr>
+
                   <tr v-for="(item,index) in lista.data" :key="index">
                     <td>{{ index+1 }}</td>
                     <td>{{ item.first_name }}</td>
@@ -114,10 +127,9 @@ export default {
   middleware: 'auth',
   components: { CrearEmployee, EditEmployee },
   data: () => ({
-    lista: {
-      data: []
-    },
-    listaCompanies: []
+    lista: {data: []},
+    listaCompanies: [],
+    cargando:false
   }),
   mounted () {
     this.getData()
@@ -125,9 +137,11 @@ export default {
   },
   methods: {
     async getData (page = 1) {
-      this.lista = []
+      this.cargando = true
+      this.lista = {data: []}
       let resp = await this.$http(`/api/employees?page=${page}`)
       if (resp) this.lista = resp.data
+      this.cargando = false
     },
 
     async getDataEmployee () {

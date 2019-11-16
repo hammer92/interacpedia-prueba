@@ -5,6 +5,7 @@
          button-class="btn btn-sm btn-primary"
          :button-text="$t('create')"
          @save="save"
+         :cargando="cargando"
   >
     <template slot="button-icon">
       <i class="fas fa-plus" />
@@ -65,9 +66,11 @@ export default {
       website: '',
       logofile: ''
     }),
+    cargando:false,
   }),
   methods: {
     async save () {
+      this.cargando = true
       const resp = await this.form.submit('post', '/api/companies', {
         // Transform form data to FormData
         transformRequest: [
@@ -88,6 +91,7 @@ export default {
         this.form.reset()
         this.$emit('ok')
       }
+      this.cargando = false;
     }
   }
 }

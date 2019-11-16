@@ -20,11 +20,13 @@ axios.interceptors.request.use(request => {
 
   // request.headers['X-Socket-Id'] = Echo.socketId()
 
+  store.commit('auth/cargando',true)
   return request
 })
 
 // Response interceptor
 axios.interceptors.response.use(response => response, error => {
+  store.commit('auth/cargando',false)
   const { status, data } = error.response
   if (status >= 500) {
     Swal.fire({

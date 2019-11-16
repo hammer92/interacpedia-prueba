@@ -6,6 +6,8 @@ import Checkbox from './Checkbox'
 import Modal from './Modal'
 import vueFile from './vueFile'
 import { HasError, AlertError, AlertSuccess } from 'vform'
+import { SemipolarSpinner  } from 'epic-spinners'
+
 
 // Components that are registered globaly.
 [
@@ -17,7 +19,8 @@ import { HasError, AlertError, AlertSuccess } from 'vform'
   AlertError,
   AlertSuccess,
   Modal,
-  vueFile
+  vueFile,
+  SemipolarSpinner
 ].forEach(Component => {
   Vue.component(Component.name, Component)
 })

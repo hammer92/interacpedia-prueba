@@ -14,7 +14,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <!-- Default box -->
@@ -38,7 +37,16 @@
         </div>
         <div class="card-body pb-0">
           <div class="row d-flex align-items-stretch">
-            <div v-if="lista.data.length === 0" class="col-12">
+            <div class="col-12 jumbotron" v-if="cargando">
+              <semipolar-spinner
+                      class="mx-auto"
+                      :animation-duration="1500"
+                      :size="64"
+                      color="#25628F"
+              />
+            </div>
+
+            <div v-if="lista.data.length === 0 && !cargando" class="col-12">
               <div class="error-page">
                 <h2 class="headline text-warning">
                   <i class="fas fa-exclamation-triangle text-warning" />
@@ -108,16 +116,19 @@ export default {
   middleware: 'auth',
   components: { EditCompany, CrearCompany },
   data: () => ({
-    lista: {data: []}
+    lista: {data: []},
+    cargando:false
   }),
   mounted () {
     this.getData()
   },
   methods: {
     async getData (page = 1) {
+      this.cargando = true
       this.lista = {data: []}
       let resp = await this.$http(`/api/companies?page=${page}`)
       if (resp) this.lista = resp.data
+      this.cargando = false
     },
 
     async remove (id) {

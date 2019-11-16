@@ -55,7 +55,7 @@ class EmployeeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param Employee $employee
      * @return Response
      * @throws \Exception
      */

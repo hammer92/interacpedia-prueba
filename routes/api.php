@@ -31,8 +31,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::prefix('employees')->namespace('API')->group(function () {
         Route::get('/', 'EmployeeController@index');
         Route::post('/', 'EmployeeController@store');
-        Route::put('{company}', 'EmployeeController@update');
-        Route::delete('{company}', 'EmployeeController@destroy');
+        Route::put('{employee}', 'EmployeeController@update');
+        Route::delete('{employee}', 'EmployeeController@destroy');
     });
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');

@@ -5,6 +5,7 @@
            button-class="btn btn-sm btn-primary"
            :button-text="$t('edit')"
            @save="save"
+           :cargando="cargando"
     >
         <form @submit.prevent="save" @keydown="form.onKeydown($event)" class="text-center">
 
@@ -64,7 +65,8 @@
                 logofile: ''
             }),
             id: false,
-            logo:''
+            logo:'',
+            cargando:false
         }),
         methods:{
             setData(item){
@@ -74,6 +76,7 @@
                 this.$refs.modalCrear.open()
             },
             async save(){
+                this.cargando = true
                 const resp = await this.form.submit('post', `/api/companies/${this.id}`, {
                     // Transform form data to FormData
                     transformRequest: [
@@ -89,12 +92,14 @@
                     console.log(error)
                 })
 
+                this.cargando = false
                 if(resp){
                     this.$refs.modalCrear.close()
                     this.form.clear()
                     this.form.reset()
                     this.$emit('ok')
                 }
+
 
             }
         }

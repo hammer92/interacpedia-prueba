@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <loading ref="loading" />
-
+    <cargando />
     <transition name="page" mode="out-in">
       <component :is="layout" v-if="layout" />
     </transition>
@@ -10,6 +10,7 @@
 
 <script>
 import Loading from './Loading'
+import Cargando from './Cargando'
 
 // Load layout components dynamically.
 const requireContext = require.context('~/layouts', false, /.*\.vue$/)
@@ -27,7 +28,8 @@ export default {
   el: '#app',
 
   components: {
-    Loading
+    Loading,
+    Cargando
   },
 
   data: () => ({

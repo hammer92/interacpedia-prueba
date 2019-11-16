@@ -18,8 +18,12 @@
                         <slot></slot>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button class="btn btn-default" @click="$emit('close')" data-dismiss="modal">{{ $t('close') }}</button>
-                        <button class="btn btn-primary" @click="$emit('save')">{{ $t('save') }}</button>
+                        <button class="btn btn-default" @click="$emit('close')" data-dismiss="modal">
+                            {{ $t('close') }}</button>
+                        <button class="btn btn-primary" @click="$emit('save')">
+                            <div class="spinner-border" v-if="cargando"></div>
+                            {{ $t('save') }}
+                        </button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -38,6 +42,10 @@
             id:{
                 type:String,
                 required: true
+            },
+            cargando:{
+                type:Boolean,
+                required: false
             },
             button:{
                 type:Boolean,

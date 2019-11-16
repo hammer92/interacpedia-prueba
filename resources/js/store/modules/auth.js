@@ -5,12 +5,14 @@ import * as types from '../mutation-types'
 // state
 export const state = {
   user: null,
-  token: Cookies.get('token')
+  token: Cookies.get('token'),
+  cargando : false
 }
 
 // getters
 export const getters = {
   user: state => state.user,
+  cargando: state => state.cargando,
   token: state => state.token,
   check: state => state.user !== null
 }
@@ -24,6 +26,10 @@ export const mutations = {
 
   [types.FETCH_USER_SUCCESS] (state, { user }) {
     state.user = user
+  },
+
+  cargando (state, { estado }) {
+    state.cargando = estado
   },
 
   [types.FETCH_USER_FAILURE] (state) {

@@ -5,6 +5,7 @@
            button-class="btn btn-sm btn-primary"
            :button-text="$t('create')"
            @save="save"
+           :cargando="cargando"
     >
         <template slot="button-icon">
             <i class="fas fa-plus"></i>
@@ -92,13 +93,15 @@
                 email: '',
                 phone: ''
             }),
+            cargando:false
         }),
         methods:{
             async save(){
+                this.cargando = true
                 const resp = await this.form.post('/api/employees').catch(error=>{
                     console.log(error)
-                    return
                 })
+                this.cargando = false
                 if(resp){
                     this.$refs.modalCrear.close()
                     this.form.clear()

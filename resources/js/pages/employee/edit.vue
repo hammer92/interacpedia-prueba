@@ -5,6 +5,7 @@
            button-class="btn btn-sm btn-primary"
            :button-text="$t('edit')"
            @save="save"
+           :cargando="cargando"
     >
         <form @submit.prevent="save" @keydown="form.onKeydown($event)">
 
@@ -89,7 +90,8 @@
                 email: '',
                 phone: ''
             }),
-            id: false
+            id: false,
+            cargando: false
         }),
         methods:{
             setData(item){
@@ -98,10 +100,11 @@
                 this.$refs.modalCrear.open()
             },
             async save(){
+                this.cargando = true
                 const resp = await this.form.put(`/api/employees/${this.id}`).catch(error=>{
                     console.log(error)
-                    return
                 })
+                this.cargando=false
                 if(resp){
                     this.$refs.modalCrear.close()
                     this.form.clear()
