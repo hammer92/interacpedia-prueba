@@ -19,7 +19,7 @@
       </div>
 
       <div class="links">
-        <a href="https://github.com/cretueusebiu/laravel-vue-spa">github.com/cretueusebiu/laravel-vue-spa</a>
+        <a href="https://github.com/hammer92/interacpedia-prueba">https://github.com/hammer92/interacpedia-prueba</a>
       </div>
     </div>
   </div>

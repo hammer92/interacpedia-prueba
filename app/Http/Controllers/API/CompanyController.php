@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Mailgun;
 
 class CompanyController extends Controller
 {
@@ -28,11 +29,13 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
-        dd($request->file('file')->isValid());
-        $logo = $request->file('file')->store('company', 'public');
-        $request->merge(['logo' => $logo]);
+        if(!is_null($request->logofile)){
+            $logo = $request->file('logofile')->store('company', 'public');
+            $request->merge(['logo' => $logo]);
+        }
         $model = new Company($request->all());
         $model->save();
+
         return $model;
     }
 
@@ -54,10 +57,12 @@ class CompanyController extends Controller
      * @param Company $company
      * @return Company
      */
-    public function update(Request $request, Company $company)
+    public function update(Company $company, Request $request)
     {
-        dd($request->file);
-        if ($request->hasFile('photo')) {
+
+        if(!is_null($request->logofile)){
+            Storage::disk('public')->delete($company->logo);
+            $company->logo = $request->file('logofile')->store('company', 'public');
         }
         $company->name = $request->name;
         $company->email = $request->email;
@@ -75,7 +80,9 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        Storage::disk('public')->delete($company->logo);
+        if(!is_null($company->logo)){
+            Storage::disk('public')->delete($company->logo);
+        }
         return response()->json($company->delete());
     }
 }

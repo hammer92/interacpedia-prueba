@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::get('/', 'CompanyController@index');
         Route::get('/select', 'CompanyController@select');
         Route::post('/', 'CompanyController@store');
-        Route::put('{company}', 'CompanyController@update');
+        Route::post('{company}', 'CompanyController@update');
         Route::delete('{company}', 'CompanyController@destroy');
     });
 

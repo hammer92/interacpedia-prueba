@@ -49,7 +49,7 @@
 
         <has-error :form="form" field="website" />
       </div>
-      <vueFile v-model="form.file" />
+      <vueFile v-model="form.logofile" />
     </form>
   </modal>
 </template>
@@ -63,9 +63,8 @@ export default {
       name: '',
       email: '',
       website: '',
-      file: ''
+      logofile: ''
     }),
-    files: []
   }),
   methods: {
     async save () {

@@ -35,17 +35,21 @@ const FilePond = vueFilePond(
 )
 export default {
   name: 'VueFile',
+  props:['value'],
   components: {
     FilePond
   },
   computed: {
     myFiles: {
       get () {
-        return []
+        return this.value
       },
       set (val) {
-        let input =  (val.length>0) ? val[0].file : val
+        console.log(val)
+        if(val){
+          let input =  (val.length>0) ? val[0].file : val
           this.$emit('input', input)
+        }
       }
     }
   }

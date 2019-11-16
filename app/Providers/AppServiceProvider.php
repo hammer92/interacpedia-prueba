@@ -30,5 +30,11 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment('local', 'testing')) {
             $this->app->register(DuskServiceProvider::class);
         }
+
+        $this->app->bind('mailgun.client', function() {
+            return \Http\Adapter\Guzzle6\Client::createWithConfig([
+                // your Guzzle6 configuration
+            ]);
+        });
     }
 }

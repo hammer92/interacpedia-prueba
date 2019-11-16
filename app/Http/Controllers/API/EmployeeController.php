@@ -41,7 +41,7 @@ class EmployeeController extends Controller
      * @param Employee $employee
      * @return Employee
      */
-    public function update(EmployeeRequest $request, Employee $employee)
+    public function update(Employee $employee, EmployeeRequest $request)
     {
         $employee->first_name = $request->first_name;
         $employee->last_name = $request->last_name;

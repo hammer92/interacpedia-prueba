@@ -108,15 +108,14 @@ export default {
   middleware: 'auth',
   components: { EditCompany, CrearCompany },
   data: () => ({
-    lista: {
-      data: []
-    }
+    lista: {data: []}
   }),
   mounted () {
     this.getData()
   },
   methods: {
     async getData (page = 1) {
+      this.lista = {data: []}
       let resp = await this.$http(`/api/companies?page=${page}`)
       if (resp) this.lista = resp.data
     },

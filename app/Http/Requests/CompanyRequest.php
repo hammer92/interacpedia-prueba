@@ -25,7 +25,8 @@ class CompanyRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'email|unique:companies,email',
+            'email' => 'email',
+            'logofile' => '',
         ];
     }
 }

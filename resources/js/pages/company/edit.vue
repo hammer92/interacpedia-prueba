@@ -45,7 +45,7 @@
 
                 <has-error :form="form" field="website" />
             </div>
-            <vueFile v-model="form.file" />
+            <vueFile v-model="form.logofile" />
         </form>
 
 
@@ -60,7 +60,8 @@
             form: new Form({
                 name: '',
                 email: '',
-                website: ''
+                website: '',
+                logofile: ''
             }),
             id: false,
             logo:''
@@ -73,7 +74,7 @@
                 this.$refs.modalCrear.open()
             },
             async save(){
-                const resp = await this.form.submit('put', `/api/companies/${this.id}`, {
+                const resp = await this.form.submit('post', `/api/companies/${this.id}`, {
                     // Transform form data to FormData
                     transformRequest: [
                         function(data) {

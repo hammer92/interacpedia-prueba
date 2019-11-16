@@ -100,7 +100,7 @@
       <!-- /.card -->
     </section>
     <!-- /.content -->
-    <edit-employee ref="edit" @ok="getData" />
+    <edit-employee ref="edit" :lista-companies="listaCompanies" @ok="getData" />
   </div>
   <!-- /.content-wrapper -->
 </template>
@@ -125,6 +125,7 @@ export default {
   },
   methods: {
     async getData (page = 1) {
+      this.lista = []
       let resp = await this.$http(`/api/employees?page=${page}`)
       if (resp) this.lista = resp.data
     },
